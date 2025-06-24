@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login App - Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+      /* Menambahkan style untuk menghindari kedipan */
+      body {
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+      body.loading {
+        opacity: 0;
+      }
+      #main-wrapper {
+        opacity: 1;
+        transition: opacity 0.3s;
+      }
+      #main-wrapper.loading {
+        opacity: 0;
+      }
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body class="loading">
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- MetisMenu JS -->
+    <script src="https://cdn.jsdelivr.net/npm/metismenu@3.0.7/dist/metisMenu.min.js"></script>
+    <!-- App JS -->
+    <script type="module" src="/src/main.jsx"></script>
+    <!-- Template Initialization -->
+    <script>
+      // Fungsi untuk menghapus preloader
+      function removePreloader() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+          setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+              preloader.style.display = 'none';
+              document.body.classList.remove('loading');
+            }, 300);
+          }, 500);
+        }
+      }
+
+      // Inisialisasi saat DOM sudah siap
+      document.addEventListener('DOMContentLoaded', function() {
+        // Inisialisasi MetisMenu setelah DOM siap
+        if (typeof $ !== 'undefined' && $.fn.metisMenu) {
+          $('#menu').metisMenu();
+        }
+        
+        // Aktifkan toggle sidebar
+        const navControl = document.querySelector('.nav-control');
+        if (navControl) {
+          navControl.addEventListener('click', function() {
+            const mainWrapper = document.getElementById('main-wrapper');
+            if (mainWrapper) {
+              mainWrapper.classList.toggle('menu-toggle');
+            }
+            this.querySelector('.hamburger').classList.toggle('is-active');
+          });
+        }
+      });
+
+      // Hapus preloader saat halaman selesai dimuat
+      window.addEventListener('load', removePreloader);
+    </script>
+  </body>
+</html>
