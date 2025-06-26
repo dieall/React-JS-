@@ -1,0 +1,15 @@
+/* Tidak perlu gaya tambahan karena kita menggunakan template Gymove */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 15px;
+}
+ 
